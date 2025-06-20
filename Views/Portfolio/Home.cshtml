@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Portfolio Home";
+}
+
+<!-- Portfolio Builder Main Section -->
+<section class="py-7 bg-light min-vh-100 d-flex align-items-center">
+    <div class="container mb-5 mt-5">
+        <div class="row align-items-center justify-content-between">
+            <!-- Text Content -->
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <h1 class="fw-bold display-4 text-primary">Welcome to Your AI Portfolio Hub</h1>
+                <p class="lead text-muted">
+                    Generate stunning, AI-enhanced portfolios in seconds and manage all your projects in one place.
+                </p>
+
+                <div class="d-flex flex-column flex-md-row gap-3 mt-4">
+                    <a asp-controller="Portfolio" asp-action="Create"
+                       class="btn btn-primary btn-lg px-4 shadow-sm transition-hover">
+                        <i class="bi bi-plus-circle me-2"></i> Create New Portfolio
+                    </a>
+                    <a asp-controller="Portfolio" asp-action="Index"
+                       class="btn btn-outline-secondary btn-lg px-4 transition-hover">
+                        <i class="bi bi-folder2-open me-2"></i> Manage My Portfolios
+                    </a>
+                </div>
+            </div>
+
+            <!-- Illustration -->
+            <div class="col-lg-6 text-center">
+                <img src="~/assets/images/svg/undraw_organize-resume_ihw6.svg"
+                     alt="AI Portfolio Illustration"
+                     class="img-fluid"
+                     style="max-width: 600px; height: auto;" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .transition-hover {
+        transition: all 0.3s ease-in-out;
+    }
+
+        .transition-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+        }
+</style>

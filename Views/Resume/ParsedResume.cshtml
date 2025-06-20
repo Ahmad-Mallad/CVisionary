@@ -1,0 +1,161 @@
+﻿@model Resume
+@{
+    Layout = "_PlainLayout";
+    ViewBag.Title = "Parsed Resume";
+    var initials = string.Join("", (Model.FirstName?[0].ToString() ?? "") + (Model.LastName?[0].ToString() ?? "")).ToUpper();
+}
+
+<div class="container mt-5 mb-5">
+    <div class="card shadow-lg border-5">
+        <div class="card-body px-5 py-4">
+
+            <!-- 🔹 Header: Avatar + Name -->
+            <div class="d-flex align-items-center mb-5">
+                <!-- Avatar with Initials -->
+                <div class="me-4">
+                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+                    style="width: 80px; height: 80px; font-size: 28px; font-weight: bold;">
+                        @initials
+                    </div>
+                </div>
+                <!-- Name & Contact -->
+                <div>
+                    <h2 class="fw-bold mb-1">@Model.FirstName @Model.LastName</h2>
+                    <h5 class="text-muted mb-2">@Model.Title</h5>
+                    <div class="text-muted">
+                        <span><i class="bi bi-envelope"></i> @Model.Email</span> |
+                        <span><i class="bi bi-telephone"></i> @Model.PhoneNumber</span>
+                    </div>
+                    <div class="mt-2">
+                        @if (!string.IsNullOrWhiteSpace(Model.LinkedInLink))
+                        {
+                            <a href="@Model.LinkedInLink" target="_blank" class="btn btn-outline-primary btn-sm me-2">
+                                <i class="bi bi-linkedin"></i> LinkedIn
+                            </a>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.GithubLink))
+                        {
+                            <a href="@Model.GithubLink" target="_blank" class="btn btn-outline-dark btn-sm">
+                                <i class="bi bi-github"></i> GitHub
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- 🔹 Summary -->
+            @if (!string.IsNullOrWhiteSpace(Model.Summary))
+            {
+                <section class="mb-5">
+                    <h4 class="text-primary mb-3">Summary</h4>
+                    <p class="fs-7">@Model.Summary</p>
+                </section>
+            }
+
+            <!-- 🔹 Education -->
+            @if (Model.Educations?.Any() == true)
+            {
+                <section class="mb-5">
+                    <h4 class="text-primary mb-3">Education</h4>
+                    @foreach (var edu in Model.Educations)
+                    {
+                        <div class="mb-3">
+                            <h5 class="fw-semibold">@edu.DegreeType in @edu.MajorName</h5>
+                            <small class="text-muted">@edu.CollegeName (@FormatDate(edu.StartDate) - @FormatDate(edu.EndDate))</small><br />
+                            @if(edu.GPA.HasValue)
+                            {
+                            <h5>Gpa:@edu.GPA</h5>
+                            }
+                        </div>
+                    }
+                </section>
+            }
+
+            <!-- 🔹 Experience -->
+            @if (Model.Experiences?.Any() == true)
+            {
+                <section class="mb-5">
+                    <h4 class="text-primary mb-3">Experience</h4>
+                    @foreach (var exp in Model.Experiences)
+                    {
+                        <div class="mb-3">
+                            <h5 class="fw-semibold">@exp.Title at @exp.CompanyName</h5>
+                            <small class="text-muted">@FormatDate(exp.StartDate) - @(exp.IsCurrent ? "Present" : FormatDate(exp.EndDate))</small>
+                            <p class="mt-1">@exp.Description</p>
+                        </div>
+                    }
+                </section>
+            }
+
+            <!-- 🔹 Certificates -->
+            @if (Model.Certificates?.Any() == true)
+            {
+                <section class="mb-5">
+                    <h4 class="text-primary mb-3">Certificates</h4>
+                    <ul class="list-unstyled">
+                        @foreach (var cert in Model.Certificates)
+                        {
+                            <li class="fs-7">
+                                <strong>@cert.TopicName</strong> from @cert.ProviderName
+                                @if (cert.StartDate != null && cert.EndDate != null)
+                                {
+                                    <small class="text-muted">(@FormatDate(cert.StartDate) - @FormatDate(cert.EndDate))</small>
+                                }
+                                else if (cert.StartDate != null)
+                                {
+                                    <small class="text-muted">(@FormatDate(cert.StartDate))</small>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </section>
+            }
+
+
+            
+
+            <!-- 🔹 Skills -->
+            @if (Model.Skills?.Any() == true)
+            {
+                <section class="mb-5">
+                    <h4 class="text-primary mb-3">Skills</h4>
+                    <div>
+                        @foreach (var skill in Model.Skills)
+                        {
+                            <span class="badge bg-secondary me-2 mb-2 fs-7">@skill.SkillName (@skill.SkillType)</span>
+                        }
+                    </div>
+                </section>
+            }
+
+            
+
+           
+
+            <!-- 🔹 Languages -->
+            @if (Model.Languages?.Any() == true)
+            {
+                <section class="mb-5">
+                    <h4 class="text-primary mb-3">Languages</h4>
+                    <ul class="list-unstyled">
+                        @foreach (var lang in Model.Languages)
+                        {
+                            <li class="fs-7">@lang.LanguageName: @lang.Level</li>
+                        }
+                    </ul>
+                </section>
+            }
+
+           
+
+        </div>
+    </div>
+</div>
+
+@functions {
+    string FormatDate(string? date)
+    {
+        if (string.IsNullOrWhiteSpace(date)) return "";
+        return date.Length == 4 ? date : DateTime.TryParse(date, out var parsed) ? parsed.ToString("yyyy-MM") : date;
+    }
+}

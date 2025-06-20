@@ -1,0 +1,30 @@
+﻿@model CVisionary.Models.Service
+@{
+    ViewData["Title"] = "Delete Service";
+}
+
+<div class="container py-5">
+    <div class="col-md-6 mx-auto">
+        <div class="card shadow border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">Delete Service</h4>
+            </div>
+            <div class="card-body">
+                <p>Are you sure you want to delete the service <strong>@Model.ServiceName</strong>?</p>
+                @if (Model.ServiceImage != null)
+                {
+                        <img src="@Url.Action("ServiceImage", "Service", new { id = Model.ServiceId })"
+                             alt="Service Image"
+                             style="height:60px;width:60px;object-fit:cover;border-radius:8px;" />
+                }
+                <form asp-action="DeleteConfirmed" method="post">
+                    <input asp-for="ServiceId" type="hidden" />
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Delete
+                    </button>
+                    <a asp-action="Index" class="btn btn-link">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

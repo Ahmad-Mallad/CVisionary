@@ -1,0 +1,245 @@
+﻿@model CVisionary.DTOs.PortfolioUpdateDTO
+
+@{
+    ViewData["Title"] = "Edit Portfolio";
+}
+
+<div class="container-fluid d-flex justify-content-center align-items-center" style="min-height:100vh;">
+    <div class="col-lg-10 col-xl-8">
+        <div class="card shadow-lg rounded-4 border border-secondary-subtle">
+            <div class="card-header bg-gradient-primary text-white rounded-top-4 d-flex align-items-center gap-3 py-3 px-4">
+                <i class="bi bi-pencil-square fs-3"></i>
+                <h4 class="mb-0">Edit Your Portfolio</h4>
+            </div>
+            <div class="card-body px-5 py-4">
+                <form asp-action="Edit" method="post" enctype="multipart/form-data" novalidate>
+                    <!-- Hidden ID -->
+                    <input asp-for="PortfolioId" type="hidden" />
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+
+                    <!-- Profile Photo Section: Upload left, existing image right -->
+                    <div class="row align-items-center mb-4">
+                        <label class="col-sm-3 col-form-label text-primary fw-semibold d-flex align-items-start gap-2 fs-5">
+                            <i class="bi bi-image-fill fs-3"></i> Profile Photo
+                        </label>
+                        <div class="col-sm-9">
+                            <div class="row g-3">
+                                <!-- Upload New Photo (left) -->
+                                <div class="col-12 col-md-6 d-flex flex-column justify-content-center">
+                                    <label asp-for="ProfileImage" class="form-label text-primary fw-semibold">
+                                        <i class="bi bi-upload me-1"></i> Upload New Photo
+                                    </label>
+                                    <input asp-for="ProfileImage" type="file" class="form-control" />
+                                    <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                                    <span class="form-text text-muted">Leave blank to keep the current photo.</span>
+                                </div>
+                                <!-- Current Photo (right) -->
+                                <div class="col-12 col-md-6 text-center d-flex flex-column align-items-center justify-content-center">
+                                    @if (Model.HasProfileImage)
+                                    {
+                                        <img src="@Url.Action("Image", "Portfolio", new { entity = "portfolio", id = Model.PortfolioId })"
+                                             alt="Profile photo"
+                                             class="img-thumbnail rounded-circle mb-2"
+                                             style="width: 150px; height: 150px; object-fit: cover;" />
+                                        <span class="text-muted small">Current</span>
+                                    }
+                                    else
+                                    {
+                                        <i class="bi bi-person-circle fs-1 text-secondary" style="font-size: 140px;"></i>
+                                        <span class="text-muted small">No Image</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    
+
+                    <!-- Bio -->
+                    <div class="row align-items-center mb-4">
+                        <label asp-for="PersonalInfoText"
+                               class="col-sm-3 col-form-label text-primary fw-semibold d-flex align-items-center gap-2 fs-5">
+                            <i class="bi bi-chat-left-text-fill fs-3"></i> Your Bio
+                        </label>
+                        <div class="col-sm-9">
+                            <textarea asp-for="PersonalInfoText" class="form-control fs-5 fst-italic" rows="4"></textarea>
+                            <span asp-validation-for="PersonalInfoText" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <hr>
+
+                    
+
+                    <!-- Services Selection -->
+                    <div class="row align-items-center mb-4">
+                        <label asp-for="ServiceIds"
+                               class="col-sm-3 col-form-label text-primary fw-semibold d-flex align-items-center gap-2 fs-5">
+                            <i class="bi bi-list-check fs-3"></i> Services
+                        </label>
+                        <div class="col-sm-9">
+                            <select asp-for="ServiceIds"
+                                    asp-items="@(new MultiSelectList(ViewBag.Services, "ServiceId", "ServiceName", Model.ServiceIds))"
+                                    class="selectpicker form-control"
+                                    multiple
+                                    data-live-search="true"
+                                    data-actions-box="true"
+                                    title="Select one or more services...">
+                            </select>
+                            <span asp-validation-for="ServiceIds" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!-- Projects -->
+                    <div id="projects-container">
+                        @for (int i = 0; i < Model.Projects.Count; i++)
+                        {
+                            <div class="project-block mb-4 border rounded-3 p-3">
+                                <input asp-for="Projects[@i].ProjectId" type="hidden" />
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="mb-0"><i class="bi bi-kanban fs-4"></i> Project</h5>
+                                    <button type="button" class="btn btn-sm btn-outline-danger remove-project">Remove</button>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <input asp-for="Projects[@i].ProjectName" class="form-control" placeholder="Project Name" />
+                                        <span asp-validation-for="Projects[@i].ProjectName" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input asp-for="Projects[@i].ProjectLink" class="form-control" placeholder="Project Link (optional)" />
+                                        <span asp-validation-for="Projects[@i].ProjectLink" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-12">
+                                        <textarea asp-for="Projects[@i].ProjectDescription" class="form-control" rows="3"></textarea>
+                                        <span asp-validation-for="Projects[@i].ProjectDescription" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input asp-for="Projects[@i].StartDate" type="date" class="form-control" />
+                                        <span asp-validation-for="Projects[@i].StartDate" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input asp-for="Projects[@i].EndDate" type="date" class="form-control" />
+                                        <span asp-validation-for="Projects[@i].EndDate" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select asp-for="Projects[@i].ServiceId"
+                                                asp-items="@(new SelectList(ViewBag.Services, "ServiceId", "ServiceName", Model.Projects[@i].ServiceId))"
+                                                class="form-select">
+                                            <option value="">-- Select Core Service --</option>
+                                        </select>
+                                        <span asp-validation-for="Projects[@i].ServiceId" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input asp-for="Projects[@i].CustomServiceName" class="form-control" placeholder="Or Custom Service" />
+                                        <span asp-validation-for="Projects[@i].CustomServiceName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <!-- Project Image Upload and Preview Side by Side -->
+                                <div class="row g-3 align-items-center mt-2">
+                                    <!-- Upload New Project Image (left) -->
+                                    <div class="col-12 col-md-6 d-flex flex-column justify-content-center">
+                                        <label asp-for="Projects[@i].ProjectImage" class="form-label text-primary fw-semibold">
+                                            <i class="bi bi-upload me-1"></i> Upload New Image
+                                        </label>
+                                        <input asp-for="Projects[@i].ProjectImage" type="file" class="form-control" />
+                                        <span asp-validation-for="Projects[@i].ProjectImage" class="text-danger"></span>
+                                        <span class="form-text text-muted">Leave blank to keep the current image.</span>
+                                    </div>
+                                    <!-- Existing Project Image (right) -->
+                                    <div class="col-12 col-md-6 text-center d-flex flex-column align-items-center justify-content-center">
+                                        @if (Model.Projects[i].HasProjectImage)
+                                        {
+                                            <img src="@Url.Action("Image", "Portfolio", new { entity = "project", id = Model.Projects[i].ProjectId })"
+                                                 alt="Project image"
+                                                 class="img-thumbnail rounded mb-2"
+                                                 style="width: 130px; height: 130px; object-fit: cover;" />
+                                            <span class="text-muted small">Current</span>
+                                        }
+                                        else
+                                        {
+                                            <i class="bi bi-image fs-1 text-secondary" style="font-size: 110px;"></i>
+                                            <span class="text-muted small">No Image</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="d-flex justify-content-end mb-4">
+                        <button type="button" id="add-project" class="btn btn-outline-primary">
+                            <i class="bi bi-plus-circle me-1"></i> Add Another Project
+                        </button>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-gradient-primary btn-lg fw-bold text-white py-3 rounded-4 shadow-sm">
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (() => {
+            let index = @Model.Projects.Count;
+            const container = document.getElementById('projects-container');
+            // Clone the first block as a clean template
+            const original = container.querySelector('.project-block');
+            const template = original.cloneNode(true);
+
+            // Function to reset the cloned block
+            function resetProjectBlock(block, idx) {
+                // Reset all input/select/textarea values (except hidden)
+                block.querySelectorAll('input, textarea, select').forEach(el => {
+                    if (el.type !== 'hidden') el.value = '';
+                    const oldName = el.name;
+                    if (oldName) el.name = oldName.replace(/\[\d+\]/, `[${idx}]`);
+                    if (el.id) el.id = el.id.replace(/\d+/, idx);
+                });
+
+                // Remove all image previews
+                block.querySelectorAll('img').forEach(img => img.remove());
+                // Remove all image placeholder icons
+                block.querySelectorAll('i.bi-image, i.bi-person-circle').forEach(icon => icon.remove());
+                // Remove any "Current"/"No Image" text
+                block.querySelectorAll('span.text-muted.small').forEach(span => span.textContent = '');
+
+                // Clear any validation messages
+                block.querySelectorAll('.text-danger').forEach(span => span.textContent = '');
+
+                // Attach remove handler
+                block.querySelector('.remove-project').addEventListener('click', e => {
+                    e.currentTarget.closest('.project-block').remove();
+                });
+            }
+
+            // When Add Project is clicked
+            document.getElementById('add-project').addEventListener('click', () => {
+                const clone = template.cloneNode(true);
+                resetProjectBlock(clone, index);
+                container.appendChild(clone);
+                index++;
+            });
+
+            // Allow removing the very first block as well
+            container.addEventListener('click', e => {
+                if (e.target.classList.contains('remove-project')) {
+                    e.target.closest('.project-block').remove();
+                }
+            });
+        })();
+    </script>
+    <script>
+        $(function(){
+            $('.selectpicker').selectpicker();
+        });
+    </script>
+
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

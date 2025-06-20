@@ -1,0 +1,39 @@
+﻿@model CVisionary.DTOs.ServiceCreateDTO
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Add Service";
+}
+
+<div class="container py-5">
+    <div class="col-md-7 mx-auto">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Add New Service</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post" enctype="multipart/form-data" novalidate>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="mb-3">
+                        <label asp-for="ServiceName" class="form-label"></label>
+                        <input asp-for="ServiceName" class="form-control" />
+                        <span asp-validation-for="ServiceName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ServiceDescription" class="form-label"></label>
+                        <textarea asp-for="ServiceDescription" class="form-control"></textarea>
+                        <span asp-validation-for="ServiceDescription" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ServiceImageFile" class="form-label"></label>
+                        <input asp-for="ServiceImageFile" type="file" class="form-control" />
+                        <span asp-validation-for="ServiceImageFile" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-check-lg"></i> Add Service
+                    </button>
+                    <a asp-action="Index" class="btn btn-link">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

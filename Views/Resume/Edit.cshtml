@@ -1,0 +1,71 @@
+﻿@model CVisionary.DTOs.ResumeUpdateDTO
+
+@{
+    ViewData["Title"] = "Edit Resume";
+}
+
+<div class="container-fluid d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="col-lg-10 col-xl-8">
+        <div class="card shadow-lg rounded-4 border border-secondary-subtle">
+            <div class="card-header bg-gradient-primary text-white rounded-top-4 d-flex align-items-center gap-3 py-3 px-4 bg-primary">
+                <i class="bi bi-pencil-square fs-3"></i>
+                <h4 class="mb-0">Edit Your Resume</h4>
+            </div>
+            <div class="card-body px-5 py-4">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="ResumeId" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+
+                    <!-- Personal Info -->
+                    <div class="row align-items-center mb-4">
+                        <label asp-for="PersonalSummary" class="col-sm-3 col-form-label text-primary fw-semibold d-flex align-items-center gap-2 fs-5">
+                            <i class="bi bi-person-lines-fill fs-3"></i> Personal Information
+                        </label>
+                        <div class="col-sm-9">
+                            <textarea asp-for="PersonalSummary" class="form-control fs-5 fst-italic" rows="4" placeholder="Name, email, phone, address, LinkedIn..."></textarea>
+                            <span asp-validation-for="PersonalSummary" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!-- History -->
+                    <div class="row align-items-center mb-4">
+                        <label asp-for="ProfessionalHistory" class="col-sm-3 col-form-label text-primary fw-semibold d-flex align-items-center gap-2 fs-5">
+                            <i class="bi bi-card-text fs-3"></i> Summary
+                        </label>
+                        <div class="col-sm-9">
+                            <textarea asp-for="ProfessionalHistory" class="form-control fs-5 fst-italic" rows="3" placeholder="A brief personal summary..."></textarea>
+                            <span asp-validation-for="ProfessionalHistory" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!-- Skills and languages -->
+                    <div class="row align-items-center mb-4">
+                        <label asp-for="ProfessionalSkills" class="col-sm-3 col-form-label text-primary fw-semibold d-flex align-items-center gap-2 fs-5">
+                            <i class="bi bi-mortarboard fs-3"></i> Education
+                        </label>
+                        <div class="col-sm-9">
+                            <textarea asp-for="ProfessionalSkills" class="form-control fs-5 fst-italic" rows="3" placeholder="Write Down your Education journey..."></textarea>
+                            <span asp-validation-for="ProfessionalSkills" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <hr>
+
+                    
+
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <a asp-action="Index" class="btn btn-outline-secondary rounded-3 px-4 py-2">Back to List</a>
+                        <button type="submit" class="btn btn-gradient-primary btn-lg fw-bold text-white py-3 rounded-4 shadow-sm bg-primary">
+                            Update Resume
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

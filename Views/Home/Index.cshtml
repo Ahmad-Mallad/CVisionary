@@ -1,0 +1,184 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- Hero Section -->
+<section class=" py-7 py-lg-10 min-vh-100 d-flex align-items-center">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Text Content -->
+            <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0">
+                <h1 class="display-3 fw-bold text-primary ">Create AI-Enhanced Resumes & Portfolios</h1>
+                <p class="lead">Generate stunning, professional resumes and personal portfolios in seconds. Just describe your experience — we do the rest.</p>
+                <ul class="list-unstyled mt-4">
+                    <li><i class="bi bi-check-circle-fill text-success me-2"></i> No templates to fight with</li>
+                    <li><i class="bi bi-check-circle-fill text-success me-2"></i> Smart content generation</li>
+                    <li><i class="bi bi-check-circle-fill text-success me-2"></i> One-click export and share</li>
+                </ul>
+                <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg mt-4">Get Started Free</a>
+            </div>
+
+            <!-- Image -->
+            <div class="col-lg-6 text-center">
+                <img src="~/assets/images/svg/Resume.svg" class="img-fluid ms-lg-5" alt="AI Resume Generator">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Core Features -->
+<section class="py-6">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col">
+                <h2 class="fw-bold">What You Can Do</h2>
+                <p class="text-muted">Everything you need to showcase your skills and land your dream job.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <!-- Resume Builder Card -->
+            <div class="col-md-6 d-flex">
+                <div class="card card-hover-svg w-100 d-flex flex-column h-100 text-center border border-3">
+                    <div class="card-body d-flex flex-column p-4">
+                        <div class="mb-3 fs-1 text-primary">
+                            <i class="bi bi-file-earmark-text"></i>
+                        </div>
+                        <h5 class="fw-semibold">AI Resume Builder</h5>
+                        <p class="text-muted flex-grow-1">Simply describe your experience — our AI turns it into a clean, job-ready resume.</p>
+                        <a asp-action="Home" asp-controller="Resume" class="btn btn-outline-primary mt-2">Build Resume</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portfolio Generator Card -->
+            <div class="col-md-6 d-flex">
+                <div class="card card-hover-svg w-100 d-flex flex-column h-100 text-center border border-3">
+                    <div class="card-body d-flex flex-column p-4">
+                        <div class="mb-3 fs-1 text-info">
+                            <i class="bi bi-person-lines-fill"></i>
+                        </div>
+                        <h5 class="fw-semibold">AI Portfolio Generator</h5>
+                        <p class="text-muted flex-grow-1">Highlight your work and achievements with beautiful portfolios generated instantly.</p>
+                        <a  asp-action="Home" asp-controller="Portfolio" class="btn btn-outline-info mt-2">Generate Portfolio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- How it Works -->
+<section class="section-invert py-6">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col">
+                <h2 class="fw-bold">How It Works</h2>
+                <p class="subtitle">Just 3 easy steps to a professional presence.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4 d-flex">
+                <div class="card card-hover-svg w-100 text-center h-100  border border-3">
+                    <div class="card-body p-4 d-flex flex-column align-items-center">
+                        <span class="display-4 fw-bold text-primary">1</span>
+                        <h5 class="mt-3 fw-semibold">Enter Your Info</h5>
+                        <p>Fill in your experience, skills, and preferences in a simple form.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex">
+                <div class="card card-hover-svg w-100 text-center h-100  border border-3">
+                    <div class="card-body p-4 d-flex flex-column align-items-center">
+                        <span class="display-4 fw-bold text-success">2</span>
+                        <h5 class="mt-3 fw-semibold">AI Builds for You</h5>
+                        <p>Our AI crafts a professional resume or portfolio tailored to your profile.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex">
+                <div class="card card-hover-svg w-100 text-center h-100  border border-3">
+                    <div class="card-body p-4 d-flex flex-column align-items-center">
+                        <span class="display-4 fw-bold text-warning">3</span>
+                        <h5 class="mt-3 fw-semibold">Download & Share</h5>
+                        <p>Export to PDF or share your online portfolio link with employers or clients.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Contact Section -->
+<section class="py-7" id="contact">
+    <div class="container">
+        <div class="row justify-content-center text-center ">
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-3 rounded-4 p-5 bg-light reveal-on-scroll"
+                     style="min-width:340px; max-width:650px; margin:0 auto;">
+                    <h2 class="fw-bold text-primary mb-3 fs-1">Contact Us</h2>
+                    <p class="text-muted mb-4 fs-5">
+                        Questions? Feedback? Reach out to our team — we’re happy to help!
+                    </p>
+                    <ul class="list-unstyled fs-4 mb-0">
+                        <li class="mb-3">
+                            <i class="bi bi-envelope-fill text-primary me-2"></i>
+                            <a href="mailto:support@airesumebuilder.com" class="text-decoration-none text-dark">support@airesumebuilder.com</a>
+                        </li>
+                        <li class="mb-3">
+                            <i class="bi bi-telephone-fill text-primary me-2"></i>
+                            +962 79 123 4567
+                        </li>
+                        <li>
+                            <i class="bi bi-clock-history text-primary me-2"></i>
+                            Mon - Fri, 9am - 6pm
+                        </li>
+                    </ul>
+                    <div class="mt-4">
+                        <a href="#" class="me-3 text-primary fs-2"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="me-3 text-primary fs-2"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="text-primary fs-2"><i class="bi bi-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Animation styles */
+    .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(60px);
+        transition: opacity .8s cubic-bezier(.19,1,.22,1), transform .8s cubic-bezier(.19,1,.22,1);
+    }
+
+        .reveal-on-scroll.revealed {
+            opacity: 1;
+            transform: none;
+        }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const revealEls = document.querySelectorAll('.reveal-on-scroll');
+        if ("IntersectionObserver" in window) {
+            let observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("revealed");
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+            revealEls.forEach(el => observer.observe(el));
+        } else {
+            // fallback for older browsers
+            revealEls.forEach(el => el.classList.add("revealed"));
+        }
+    });
+</script>

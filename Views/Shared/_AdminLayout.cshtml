@@ -1,0 +1,144 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Panel | CVisionary</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/assets/images/favicon/favicon.ico" />
+    <script src="~/assets/js/vendors/darkMode.js"></script>
+    <link href="~/assets/fonts/feather/feather.css" rel="stylesheet" />
+    <link href="~/assets/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="~/assets/libs/simplebar/dist/simplebar.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/css/theme.min.css">
+
+    <!-- DataTables -->
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css" rel="stylesheet" />
+    <link rel="canonical" href="https://geeksui.codescandy.com/geeks/index.html" />
+
+</head>
+
+<body>
+    <main id="db-wrapper">
+        <!-- Sidebar -->
+        <nav class="navbar-vertical navbar">
+            <div class="vh-100" data-simplebar>
+                <a class="navbar-brand d-flex align-items-center gap-2" asp-action="Index" asp-controller="Home">
+                    <span class="cvisionary-logo fw-bold " style="font-size:25px">
+                        <span class="text-primary bold">CV</span><span class="text-white">isionary</span>
+                    </span>
+                </a>
+                <ul class="navbar-nav flex-column" id="sideNavbar">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Dashboard" asp-controller="Admin">
+                            <i class="nav-icon fe fe-home me-2"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="AllResumes" asp-controller="Admin">
+                            <i class="nav-icon fe fe-file-text me-2"></i> Resumes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="AllPortfolios" asp-controller="Admin">
+                            <i class="nav-icon fe fe-briefcase me-2"></i> Portfolios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index" asp-controller="Service">
+                            <i class="nav-icon fe fe-layers me-2"></i> Services
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index" asp-controller="Home">
+                            <i class="nav-icon fe fe-home me-2"></i> Home page
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Main content -->
+        <section id="page-content">
+            <!-- Top Navbar -->
+            <nav class="navbar-default navbar navbar-expand-lg">
+                <div class="d-flex align-items-center w-100">
+                    <!-- Hamburger for sidebar -->
+                    <a id="nav-toggle" href="#" class="me-3"><i class="fe fe-menu"></i></a>
+
+                    <!-- Search form -->
+                    <form class="d-none d-md-flex flex-grow-1 me-3" role="search">
+                        <input class="form-control border-0 shadow-none" type="search" placeholder="Search..." aria-label="Search">
+                    </form>
+
+                    <div class="ms-auto d-flex align-items-center gap-3">
+                        <!-- Theme Toggle -->
+                        <div class="dropdown">
+                            <button id="themeDropdown"
+                                    class="btn btn-outline-secondary btn-sm d-flex align-items-center"
+                                    type="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                    aria-label="Toggle theme (auto)">
+                                <i class="bi bi-circle-half"></i>
+                                <span class="visually-hidden bs-theme-text">Toggle theme</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="themeDropdown">
+                                <li>
+                                    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light">
+                                        <i class="bi bi-sun-fill"></i>
+                                        <span class="ms-2">Light</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark">
+                                        <i class="bi bi-moon-stars-fill"></i>
+                                        <span class="ms-2">Dark</span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto">
+                                        <i class="bi bi-circle-half"></i>
+                                        <span class="ms-2">Auto</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- User Profile -->
+                        <div class="dropdown">
+                            <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                                
+                                <span class="d-none d-lg-inline">Admin</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Main page area -->
+            <div class="container-fluid p-4">
+                <!-- Admin content goes here -->
+                @RenderBody()
+            </div>
+        </section>
+    </main>
+    <!-- Scripts -->
+    <script src="~/assets/libs/popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="~/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/assets/libs/simplebar/dist/simplebar.min.js"></script>
+    <script src="~/assets/js/theme.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!-- DataTables -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

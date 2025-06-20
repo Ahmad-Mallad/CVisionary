@@ -1,0 +1,220 @@
+﻿@model CVisionary.Models.Resume
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@Model.FirstName @Model.LastName Resume</title>
+    <style>
+        body {
+            font-family: 'Arial', 'Segoe UI', sans-serif;
+            color: #222;
+            font-size: 1rem;
+            margin: 2rem 2.2rem;
+        }
+
+        .header {
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .info-line {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .section {
+            margin-top: 1.8rem;
+        }
+
+        .section-title {
+            font-size: 1.12rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-title {
+            font-weight: bold;
+        }
+
+        .subtle {
+            color: #666;
+            font-size: 0.97em;
+        }
+
+        ul, ol {
+            margin: 0.3em 0 1em 1.3em;
+        }
+
+        li {
+            margin-bottom: 0.18em;
+        }
+
+        .no-margin {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header: Name & Title -->
+    <div class="header">@Model.FirstName @Model.LastName</div>
+    @if (!string.IsNullOrWhiteSpace(Model.Title))
+    {
+        <div class="info-line" style="font-size:1.1em;">@Model.Title</div>
+    }
+    <div class="info-line">
+        @Model.PhoneNumber
+        @if (!string.IsNullOrWhiteSpace(Model.Email))
+        {
+            <span> | @Model.Email</span>
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.LinkedInLink))
+        {
+            <span> | @Model.LinkedInLink</span>
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.Address))
+        {
+            <span> | @Model.Address</span>
+        }
+    </div>
+
+    <!-- Summary -->
+    @if (!string.IsNullOrEmpty(Model.Summary))
+    {
+        <div class="section">
+            <div class="section-title">Summary</div>
+            <div>@Model.Summary</div>
+        </div>
+    }
+
+    <!-- Experience -->
+    @if (Model.Experiences?.Count > 0)
+    {
+        <div class="section">
+            <div class="section-title">Professional Experience</div>
+            @foreach (var exp in Model.Experiences)
+            {
+                <div class="item-title">
+                    @exp.Title
+                    @if (!string.IsNullOrWhiteSpace(exp.CompanyName))
+                    {
+                        <span>, @exp.CompanyName</span>
+                    }
+                </div>
+                <div class="subtle">
+                    @exp.StartDate
+                    @if (!string.IsNullOrWhiteSpace(exp.EndDate))
+                    {
+                        <span> - @exp.EndDate</span>
+                    }
+                    @if (exp.IsCurrent)
+                    {
+                        <span> - Present</span>
+                    }
+                </div>
+                <div>@exp.Description</div>
+                <br />
+            }
+        </div>
+    }
+
+    <!-- Education -->
+    @if (Model.Educations?.Count > 0)
+    {
+        <div class="section">
+            <div class="section-title">Education</div>
+            @foreach (var ed in Model.Educations)
+            {
+                <div class="item-title">
+                    @ed.DegreeType
+                    @if (!string.IsNullOrWhiteSpace(ed.MajorName))
+                    {
+                        <span> in @ed.MajorName</span>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(ed.CollegeName))
+                    {
+                        <span> – @ed.CollegeName</span>
+                    }
+                </div>
+                <div class="subtle">
+                    @ed.StartDate - @ed.EndDate
+                    @if (!string.IsNullOrWhiteSpace((ed.GPA).ToString()))
+                    {
+                        <br />
+                        <span>  GPA: @ed.GPA</span>
+                    }
+                </div>
+            }
+        </div>
+    }
+
+    <!-- Skills -->
+    @if (Model.Skills?.Count > 0)
+    {
+        <div class="section">
+            <div class="section-title">Skills</div>
+            <ul>
+                @foreach (var s in Model.Skills)
+                {
+                    <li>@s.SkillName @if (!string.IsNullOrWhiteSpace(s.SkillType))
+                        {
+                            <span> (@s.SkillType)</span>
+                        }</li>
+                }
+            </ul>
+        </div>
+    }
+
+    <!-- Certificates -->
+    @if (Model.Certificates?.Count > 0)
+    {
+        <div class="section">
+            <div class="section-title">Certificates</div>
+            <ul>
+                @foreach (var c in Model.Certificates)
+                {
+                    <li>
+                        @c.TopicName
+                        @if (!string.IsNullOrWhiteSpace(c.ProviderName))
+                        {
+                            <span>, @c.ProviderName</span>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(c.StartDate) || !string.IsNullOrWhiteSpace(c.EndDate))
+                        {
+                            <span>
+                                (@c.StartDate
+                                @if (!string.IsNullOrWhiteSpace(c.EndDate))
+                                {
+                                    <span> - @c.EndDate</span>
+                                })
+                            </span>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+
+    <!-- Languages -->
+    @if (Model.Languages?.Count > 0)
+    {
+        <div class="section">
+            <div class="section-title">Languages</div>
+            <ul>
+                @foreach (var l in Model.Languages)
+                {
+                    <li>@l.LanguageName @if (!string.IsNullOrWhiteSpace(l.Level))
+                        {
+                            <span> (@l.Level)</span>
+                        }</li>
+                }
+            </ul>
+        </div>
+    }
+</body>
+</html>

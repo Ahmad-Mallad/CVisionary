@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-CVisionary-9501c492-1df3-47b7-866b-dbd2fc98bc5e</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.14" />
+    <PackageReference Include="Microsoft.SemanticKernel" Version="1.54.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+    <PackageReference Include="Rotativa.AspNetCore" Version="1.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\libs\choices.js\public\types\cypress\e2e\" />
+    <Folder Include="wwwroot\assets\libs\choices.js\public\types\cypress\integration\" />
+    <Folder Include="wwwroot\assets\libs\choices.js\public\types\cypress\plugins\" />
+    <Folder Include="wwwroot\assets\libs\choices.js\public\types\cypress\support\" />
+    <Folder Include="wwwroot\assets\libs\choices.js\public\types\src\" />
+    <Folder Include="wwwroot\assets\libs\choices.js\src\" />
+    <Folder Include="wwwroot\assets\libs\datatables.net-bs5\types\" />
+    <Folder Include="wwwroot\assets\libs\datatables.net-buttons-bs5\types\" />
+    <Folder Include="wwwroot\assets\libs\datatables.net-buttons\types\" />
+    <Folder Include="wwwroot\assets\libs\datatables.net-responsive-bs5\types\" />
+    <Folder Include="wwwroot\assets\libs\datatables.net-responsive\types\" />
+    <Folder Include="wwwroot\assets\libs\datatables.net\types\" />
+    <Folder Include="wwwroot\assets\libs\file-upload-with-preview\dist\constants\" />
+    <Folder Include="wwwroot\assets\libs\file-upload-with-preview\dist\types\" />
+    <Folder Include="wwwroot\assets\libs\file-upload-with-preview\dist\utils\" />
+    <Folder Include="wwwroot\assets\libs\flatpickr\dist\types\" />
+    <Folder Include="wwwroot\assets\libs\flatpickr\dist\utils\" />
+    <Folder Include="wwwroot\assets\libs\odometer\docs\" />
+    <Folder Include="wwwroot\assets\libs\odometer\test\" />
+    <Folder Include="wwwroot\assets\libs\pdfmake\src\" />
+    <Folder Include="wwwroot\assets\libs\tiny-slider\dist\sourcemaps\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Portfolio\assets\.DS_Store" />
+  </ItemGroup>
+
+</Project>

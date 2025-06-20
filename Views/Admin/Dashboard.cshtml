@@ -1,0 +1,175 @@
+﻿@model CVisionary.ViewModels.AdminDashboardViewModel
+
+@{
+    Layout = "_AdminLayout";
+}
+
+<div class="container-fluid py-4">
+    <div class="row g-4">
+        <!-- Users Card -->
+        <div class="col-xl-4 col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-body d-flex flex-column gap-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <span class="fs-6 text-uppercase fw-semibold ls-md">Users</span>
+                        <span class="fe fe-users fs-3 text-primary"></span>
+                    </div>
+                    <h2 class="fw-bold mb-0">@Model.TotalUsers</h2>
+                    <span class="fw-medium">Total Users</span>
+                </div>
+            </div>
+        </div>
+        <!-- Resumes Card -->
+        <div class="col-xl-4 col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-body d-flex flex-column gap-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <span class="fs-6 text-uppercase fw-semibold ls-md">Resumes</span>
+                        <span class="fe fe-file-text fs-3 text-success"></span>
+                    </div>
+                    <h2 class="fw-bold mb-0">@Model.TotalResumes</h2>
+                    <span class="fw-medium">Total Resumes</span>
+                </div>
+            </div>
+        </div>
+        <!-- Portfolios Card -->
+        <div class="col-xl-4 col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-body d-flex flex-column gap-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <span class="fs-6 text-uppercase fw-semibold ls-md">Portfolios</span>
+                        <span class="fe fe-briefcase fs-3 text-info"></span>
+                    </div>
+                    <h2 class="fw-bold mb-0">@Model.TotalPortfolios</h2>
+                    <span class="fw-medium">Total Portfolios</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mt-2">
+        <div class="col-xl-8 col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Resumes & Portfolios Over Time</h4>
+                </div>
+                <div class="card-body">
+                    <div id="dashboard-chart"></div>
+                </div>
+            </div>
+        </div>
+        <!-- You can add a pie chart or traffic chart here if needed -->
+        <!-- Latest Resumes Card (compact, fixed height) -->
+        <div class="col-xl-4 col-lg-6 col-md-12">
+            <div class="card h-100">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <span class="fs-6 text-uppercase fw-semibold ls-md ">Latest Resumes</span>
+                    <div>
+                       
+                        <a asp-controller="Admin" asp-action="AllResumes" class="btn btn-sm btn-outline-primary">
+                            View All
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body p-3" style="max-height: 350px; overflow-y: auto;">
+                    <ul class="list-group list-group-flush">
+                        @foreach (var resume in Model.LatestResumes)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="fw-semibold">@resume.FirstName @resume.LastName</div>
+                                    <div class="small text-muted">@resume.Title</div>
+                                    <div class="small text-secondary">@resume.CreatedDate</div>
+                                </div>
+                                <a asp-controller="Resume" asp-action="Details" asp-route-id="@resume.ResumeId" target="_blank" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            </li>
+                        }
+                        @if (!Model.LatestResumes.Any())
+                        {
+                            <li class="list-group-item text-muted">No recent resumes.</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Latest Portfolios Card (Dashboard Style) -->
+    <div class="col-xl-12 col-lg-12 col-md-12">
+        <div class="card h-100">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <span class="fs-6 text-uppercase fw-semibold ls-md">Latest Portfolios</span>
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <a asp-controller="Admin" asp-action="AllPortfolios" class="btn btn-sm btn-outline-success">
+                        View All
+                    </a>
+                </div>
+              @*   <span class="fe fe-briefcase fs-3 text-info"></span> *@
+            </div>
+            <div class="card-body p-0" style="max-height: 350px; overflow-y: auto;">
+                <table class="table table-striped align-middle mb-0">
+                    <thead class="table-light sticky-top">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Created</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in Model.LatestPortfolios)
+                        {
+                            <tr>
+                                <td>@p.FirstName @p.LastName</td>
+                                <td>@p.Email</td>
+                                <td>@p.CreatedDate</td>
+                                <td>
+                                    <a asp-controller="Portfolio" asp-action="Details" asp-route-id="@p.PortfolioId" target="_blank" class="btn btn-sm btn-outline-info">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                        @if (!Model.LatestPortfolios.Any())
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center text-muted">No recent portfolios.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var options = {
+                chart: { type: 'line', height: 300 },
+                series: [
+                    {
+                        name: 'Resumes',
+                        data: @Html.Raw(Json.Serialize(Model.ResumesPerMonth))
+                    },
+                    {
+                        name: 'Portfolios',
+                        data: @Html.Raw(Json.Serialize(Model.PortfoliosPerMonth))
+                    }
+                ],
+                xaxis: {
+                    categories: @Html.Raw(Json.Serialize(Model.ChartLabels))
+                },
+                colors: ['#754ffe', '#19cb98']
+            };
+            new ApexCharts(document.querySelector("#dashboard-chart"), options).render();
+        });
+    </script>
+}
+

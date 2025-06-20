@@ -1,0 +1,193 @@
+﻿@model CVisionary.DTOs.PortfolioCreateDTO
+
+
+<link href="~/assets/libs/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+@{
+    ViewData["Title"] = "Create Portfolio";
+}
+
+<div class="container-fluid d-flex justify-content-center align-items-center" style="min-height:100vh;">
+    <div class="col-lg-10 col-xl-8">
+        <div class="card shadow-lg rounded-4 border border-secondary-subtle">
+            <div class="card-header bg-gradient-primary text-white rounded-top-4 d-flex align-items-center gap-3 py-3 px-4">
+                <i class="bi bi-briefcase-fill fs-3"></i>
+                <h4 class="mb-0">Build Your Portfolio</h4>
+            </div>
+            <div class="card-body px-5 py-4">
+                <form asp-action="Create" method="post" enctype="multipart/form-data" novalidate>
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+
+                    <!-- Profile Image -->
+                    <div class="row align-items-center mb-4">
+                        <label asp-for="ProfileImage" class="col-sm-3 col-form-label text-primary fw-semibold d-flex align-items-center gap-2 fs-5">
+                            <i class="bi bi-image-fill fs-3"></i> Profile Photo
+                        </label>
+                        <div class="col-sm-9">
+                            <input asp-for="ProfileImage" type="file" class="form-control" />
+                            <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!-- Raw Bio -->
+                    <div class="row align-items-center mb-4">
+                        <label asp-for="PersonalInfoText" class="col-sm-3 col-form-label text-primary fw-semibold d-flex align-items-center gap-2 fs-5">
+                            <i class="bi bi-chat-left-text-fill fs-3"></i> Your Bio
+                        </label>
+                        <div class="col-sm-9">
+                            <textarea asp-for="PersonalInfoText" class="form-control fs-5 fst-italic" rows="4" placeholder="Tell us about yourself..."></textarea>
+                            <span asp-validation-for="PersonalInfoText" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <hr>
+
+                    
+                    <hr>
+
+                    <!-- Services Selection -->
+                    <div class="row align-items-center mb-4">
+                        <label asp-for="ServiceIds" class="col-sm-3 col-form-label text-primary fw-semibold d-flex align-items-center gap-2 fs-5">
+                            <i class="bi bi-list-check fs-3"></i> Services
+                        </label>
+                        <div class="col-sm-9">
+                            <select asp-for="ServiceIds"
+                                    asp-items="@(new MultiSelectList(ViewBag.Services, "ServiceId", "ServiceName"))"
+                                    class="selectpicker form-control"
+                                    data-style="form-select"
+                                    data-live-search="true"
+                                    multiple
+                                    title="Choose one or more services...">
+                            </select>
+                            <span asp-validation-for="ServiceIds" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!-- Projects -->
+                    <div id="projects-container">
+                        <div class="project-block mb-4 border rounded-3 p-3">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="mb-0"><i class="bi bi-kanban fs-4"></i> Project</h5>
+                                <button type="button" class="btn btn-sm btn-outline-danger remove-project">Remove</button>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input asp-for="Projects[0].ProjectName" class="form-control" placeholder="Project Name" />
+                                    <span asp-validation-for="Projects[0].ProjectName" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="Projects[0].ProjectLink" class="form-control" placeholder="Project Link (optional)" />
+                                    <span asp-validation-for="Projects[0].ProjectLink" class="text-danger"></span>
+                                </div>
+                                <div class="col-12">
+                                    <textarea asp-for="Projects[0].ProjectDescription" class="form-control" rows="3" placeholder="Description"></textarea>
+                                    <span asp-validation-for="Projects[0].ProjectDescription" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="Projects[0].StartDate" type="date" class="form-control" />
+                                    <span asp-validation-for="Projects[0].StartDate" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="Projects[0].EndDate" type="date" class="form-control" />
+                                    <span asp-validation-for="Projects[0].EndDate" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <select asp-for="Projects[0].ServiceId" asp-items="@(new SelectList(ViewBag.Services, "ServiceId", "ServiceName"))"
+                                            class="form-select">
+                                        <option value="">-- Select Core Service --</option>
+                                    </select>
+                                    <span asp-validation-for="Projects[0].ServiceId" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="Projects[0].CustomServiceName" class="form-control" placeholder="Or Custom Service" />
+                                    <span asp-validation-for="Projects[0].CustomServiceName" class="text-danger"></span>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Project Image</label>
+                                    <input asp-for="Projects[0].ProjectImage" type="file" class="form-control" />
+                                    <span asp-validation-for="Projects[0].ProjectImage" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mb-4">
+                        <button type="button" id="add-project" class="btn btn-outline-primary">
+                            <i class="bi bi-plus-circle me-1"></i> Add Another Project
+                        </button>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg fw-bold text-white py-3 rounded-4 shadow-sm">
+                            Create Portfolio
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (() => {
+          let index = 1;  // next index to use
+          const container = document.getElementById('projects-container');
+
+          // grab the initial block **after** Razor has generated it,
+          // then clear out any user‐entered values
+          const template = container.querySelector('.project-block').cloneNode(true);
+          template.querySelectorAll('input, textarea, select').forEach(el => {
+            if (el.type === 'file') {
+              // file inputs: leave blank
+              el.value = '';
+            } else {
+              el.value = '';
+            }
+          });
+
+          document.getElementById('add-project').addEventListener('click', () => {
+            const clone = template.cloneNode(true);
+
+            // rewrite every form control's name & id from [0] → [index]
+            clone.querySelectorAll('input, textarea, select').forEach(el => {
+              const oldName = el.name;               // e.g. "Projects[0].ProjectName"
+              const newName = oldName.replace(/\[\d+\]/, `[${index}]`);
+              el.name = newName;                     // Projects[1].ProjectName
+              // also update the id so any <label for="..."> still works:
+              if (el.id) {
+                el.id = el.id.replace(/\_\d+_/, `_${index}_`);
+              }
+            });
+
+            // attach remove handler
+            clone.querySelector('.remove-project').addEventListener('click', e => {
+              e.currentTarget.closest('.project-block').remove();
+            });
+
+            container.appendChild(clone);
+            index++;
+          });
+
+          // allow removing the very first block if you want:
+          container.addEventListener('click', e => {
+            if (e.target.classList.contains('remove-project')) {
+              e.target.closest('.project-block').remove();
+            }
+          });
+        })();
+    </script>
+
+    <script src="~/assets/libs/bootstrap/dist/js/bootstrap-select.min.js"></script>
+
+    <script>
+        $(function(){
+          $('.selectpicker').selectpicker();
+        });
+    </script>
+
+
+    
+
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

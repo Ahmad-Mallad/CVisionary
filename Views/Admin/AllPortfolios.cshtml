@@ -1,0 +1,56 @@
+﻿@model List<CVisionary.Models.Portfolio>
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "All Portfolios";
+}
+<div class="card mt-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">All Portfolios</h5>
+    </div>
+    <div class="card-body">
+        <table id="allPortfoliosTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Created</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td>@p.FirstName @p.LastName</td>
+                        <td>@p.Email</td>
+                        <td>@p.CreatedDate</td>
+                        <td>
+                            <a asp-controller="Portfolio" asp-action="Details" asp-route-id="@p.PortfolioId" target="_blank" class="btn btn-sm btn-outline-info">
+                                <i class="bi bi-eye"></i> View
+                            </a>
+                        </td>
+                        <td>
+                            <a asp-controller="Portfolio" asp-action="Details2" asp-route-id="@p.PortfolioId" target="_blank" class="btn btn-sm btn-outline-info">
+                                <i class="bi bi-eye"></i> View
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#allPortfoliosTable').DataTable({
+                responsive: true,
+                language: {
+                    searchPlaceholder: "Search Portfolios...",
+                    search: "",
+                }
+            });
+        });
+    </script>
+}
